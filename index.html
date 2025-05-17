@@ -15,28 +15,27 @@
 
     html, body {
       height: 100%;
-      overflow: hidden;
+      overflow-x: hidden;
       background-color: #ffcccb;
       font-family: 'Arial', sans-serif;
       position: relative;
     }
 
     .message {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
+      position: relative;
+      text-align: center;
+      font-size: 1.8rem;
       color: #d85372;
       font-weight: bold;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      margin: 20px auto;
       z-index: 10;
-      transition: opacity 0.5s ease;
     }
 
     .envelope {
-      width: 350px;
-      height: 250px;
+      width: 80vw;
+      max-width: 350px;
+      height: 200px;
       background: linear-gradient(145deg, #f8b6d9, #ff6666);
       border: 4px solid #d85372;
       position: relative;
@@ -44,14 +43,12 @@
       border-radius: 20px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s ease-out;
+      margin: 40px auto;
       z-index: 2;
-      margin: 0 auto;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
     .envelope:hover {
-      transform: scale(1.05) translateY(-50%);
+      transform: scale(1.05);
     }
 
     .flap {
@@ -76,32 +73,29 @@
     }
 
     .notes {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 10px;
+      margin-top: 20px;
       z-index: 10;
       pointer-events: none;
-      width: 90%;
     }
 
     .note {
       background: #fffdf7;
       border: 2px dashed #d85372;
-      padding: 20px 25px;
+      padding: 15px;
       border-radius: 15px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #5a2a5d;
       font-family: 'Dancing Script', cursive;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       opacity: 0;
       transform: translateY(50px) scale(0.95);
       transition: all 1s ease-out;
-      max-width: 280px;
+      max-width: 90%;
       text-align: center;
       position: relative;
       background-image: linear-gradient(145deg, #fffdf7, #ffeadd);
@@ -113,7 +107,7 @@
       top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.8rem;
+      font-size: 1.5rem;
     }
 
     .note.show-note {
@@ -122,22 +116,22 @@
     }
 
     .pictures {
-      position: absolute;
-      top: 80%;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
-      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 10px;
       opacity: 0;
+      transition: opacity 1s ease-in;
     }
 
     .picture {
-      width: 130px;
-      height: 130px;
+      width: 30vw;
+      max-width: 120px;
+      aspect-ratio: 1 / 1;
       background-size: cover;
       background-position: center;
-      background-color: white;
-      border: 8px solid #fff;
+      border: 6px solid #fff;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
       opacity: 0;
@@ -155,27 +149,24 @@
     }
 
     .heart {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 120px;
-      height: 120px;
+      position: fixed;
+      top: 40%;
+      width: 80px;
+      height: 80px;
       z-index: 20;
       animation: pulseHeart 2s ease-in-out infinite;
       filter: drop-shadow(0 0 10px #ff4d6d);
     }
 
-    .heart-left { left: 10%; }
-    .heart-right { right: 10%; }
+    .heart-left { left: 5%; }
+    .heart-right { right: 5%; }
 
     .heart svg {
       width: 100%;
       height: 100%;
       stroke: #ff4d6d;
       fill: transparent;
-      stroke-width: 5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke-width: 4;
       animation: drawHeart 3s forwards, fillHeart 1s forwards 3s;
     }
 
@@ -190,8 +181,8 @@
     }
 
     @keyframes pulseHeart {
-      0%, 100% { transform: translateY(-50%) scale(1); }
-      50% { transform: translateY(-50%) scale(1.1); }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
     .floating-hearts {
@@ -216,6 +207,13 @@
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+
+    @media (max-width: 500px) {
+      .message { font-size: 1.4rem; }
+      .note { font-size: 0.95rem; padding: 12px; }
+      .heart { width: 60px; height: 60px; }
+      .picture { width: 80px; }
     }
   </style>
 </head>
@@ -294,7 +292,6 @@
     }
     setInterval(createHeart, 300);
 
-    // Easter egg logic
     const correctSequence = [0, 3, 2];
     let clickSequence = [];
 
@@ -313,6 +310,5 @@
       });
     });
   </script>
-
 </body>
 </html>
